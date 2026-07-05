@@ -1,0 +1,15 @@
+{
+  "Logistic Regression": {
+    "accuracy": 0.609375
+  },
+  "Decision Tree": {
+    "accuracy": 0.690625
+  },
+  "Random Forest": {
+    "accuracy": 0.71625
+  },
+  "XGBoost": {
+    "accuracy": 0.66625
+  },
+  "best_model": "Random Forest"
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Check Eligibility — Credit Card Approval Prediction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="ledger-bar">
+      <span class="mark">Ledger / Underwriting Engine</span>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/predict">Check Eligibility</a>
+      </nav>
+    </div>
+
+    <div class="eyebrow">Applicant Intake</div>
+    <h1>Enter Applicant Details</h1>
+    <p class="lede">Fill in the financial and demographic profile below. The
+    model evaluates it against patterns learned from historical applicant
+    outcomes and returns an instant decision.</p>
+
+    <form class="panel" action="/predict" method="POST">
+      <div class="panel-title">Financial &amp; Demographic Profile</div>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="age">Age (years)</label>
+          <input type="number" id="age" name="age" min="18" max="90" value="35" required>
+        </div>
+        <div class="field">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender">
+            {% for opt in options.CODE_GENDER %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="income">Annual Income</label>
+          <input type="number" id="income" name="income" min="0" step="100" value="180000" required>
+        </div>
+        <div class="field">
+          <label for="income_type">Income Type</label>
+          <select id="income_type" name="income_type">
+            {% for opt in options.NAME_INCOME_TYPE %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="years_employed">Years Employed</label>
+          <input type="number" id="years_employed" name="years_employed" min="0" max="60" value="5" required>
+        </div>
+        <div class="field">
+          <label for="occupation">Occupation</label>
+          <select id="occupation" name="occupation">
+            {% for opt in options.OCCUPATION_TYPE %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="education">Education Level</label>
+          <select id="education" name="education">
+            {% for opt in options.NAME_EDUCATION_TYPE %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label for="family_status">Family Status</label>
+          <select id="family_status" name="family_status">
+            {% for opt in options.NAME_FAMILY_STATUS %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="housing_type">Housing Type</label>
+          <select id="housing_type" name="housing_type">
+            {% for opt in options.NAME_HOUSING_TYPE %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label for="family_members">Family Members</label>
+          <input type="number" id="family_members" name="family_members" min="1" max="10" value="2" required>
+        </div>
+
+        <div class="field">
+          <label for="children">Number of Children</label>
+          <input type="number" id="children" name="children" min="0" max="10" value="0" required>
+        </div>
+        <div class="field">
+          <label for="own_car">Owns a Car?</label>
+          <select id="own_car" name="own_car">
+            {% for opt in options.FLAG_OWN_CAR %}<option value="{{ opt }}">{{ 'Yes' if opt=='Y' else 'No' }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="own_realty">Owns Property?</label>
+          <select id="own_realty" name="own_realty">
+            {% for opt in options.FLAG_OWN_REALTY %}<option value="{{ opt }}">{{ 'Yes' if opt=='Y' else 'No' }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label for="work_phone">Has Work Phone?</label>
+          <select id="work_phone" name="work_phone">
+            <option value="yes">Yes</option>
+            <option value="no" selected>No</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="phone">Has Phone?</label>
+          <select id="phone" name="phone">
+            <option value="yes">Yes</option>
+            <option value="no" selected>No</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="email">Has Email on File?</label>
+          <select id="email" name="email">
+            <option value="yes">Yes</option>
+            <option value="no" selected>No</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn" type="submit">Submit Application</button>
+        <a class="btn ghost" href="/">Cancel</a>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

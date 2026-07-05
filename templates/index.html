@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Credit Card Approval Prediction System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="ledger-bar">
+      <span class="mark">Ledger / Underwriting Engine</span>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/predict">Check Eligibility</a>
+      </nav>
+    </div>
+
+    <div class="eyebrow">AI Domain &middot; Smart Bridge Project</div>
+    <h1>Credit Card Approval<br>Prediction System</h1>
+    <p class="lede">
+      Banks review thousands of applications a day. This system replaces
+      slow, error-prone manual screening with a trained machine learning
+      model that reads an applicant's financial profile and returns an
+      instant approve / decline decision &mdash; the same way a real
+      underwriting desk would, just faster and more consistent.
+    </p>
+
+    <div class="form-actions" style="margin-top:28px;">
+      <a class="btn" href="/predict">Run a Prediction &rarr;</a>
+    </div>
+
+    <h2>How an application moves through the system</h2>
+    <div class="panel">
+      <div class="ledger-row">
+        <div class="num">01</div>
+        <div class="body">
+          <strong>Automated screening</strong>
+          <span>A credit analyst enters an applicant's income type, employment
+          duration, and credit history. The model returns an instant
+          approve/decline signal so analysts can focus review time on
+          borderline cases.</span>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="num">02</div>
+        <div class="body">
+          <strong>High-risk identification</strong>
+          <span>Historical monthly payment-status codes are converted into a
+          single binary risk label per applicant, so the model can flag
+          applicants with a pattern of serious delinquency as ineligible.</span>
+        </div>
+      </div>
+      <div class="ledger-row">
+        <div class="num">03</div>
+        <div class="body">
+          <strong>Self-service eligibility check</strong>
+          <span>A prospective customer enters their own details and gets an
+          instant likelihood-of-approval read &mdash; cutting down on
+          applications that were going to be rejected anyway.</span>
+        </div>
+      </div>
+    </div>
+
+    <h2>Model comparison</h2>
+    <div class="panel">
+      <div class="panel-title">Accuracy on held-out test data</div>
+      <table class="data">
+        <thead>
+          <tr><th>Model</th><th>Accuracy</th></tr>
+        </thead>
+        <tbody>
+          {% for name, stats in model_info.items() if name != "best_model" %}
+          <tr {% if name == model_info.get("best_model") %}class="best"{% endif %}>
+            <td>{{ name }}{% if name == model_info.get("best_model") %} &nbsp;(deployed)&nbsp;&larr;{% endif %}</td>
+            <td>{{ "%.2f"|format(stats.accuracy * 100) }}%</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="footer-note">
+      Four classifiers were trained &mdash; Logistic Regression, Decision
+      Tree, Random Forest, and XGBoost &mdash; and the best-performing model
+      above is the one currently serving predictions on the
+      <a href="/predict">Check Eligibility</a> page.
+    </div>
+  </div>
+</body>
+</html>
